@@ -30,9 +30,9 @@ userdata = {"name":"alice","age":20,"grade":"C"}
 
 # # Accessing keys and values
 
-# for key in userdata:
-#     value = userdata[key]
-#     print(f"Key: {key}, Value: {value}") 
+for key in userdata:
+    value = userdata[key]
+    print(f"Key: {key}, Value: {value}") 
   
 
 
@@ -41,10 +41,10 @@ userdata = {"name":"alice","age":20,"grade":"C"}
 # for value in userdata.values():
 #     print(f"Value: {value}") 
 
-# # Accessing key-value pairs (items) - Most Pythonic way
+# # # Accessing key-value pairs (items) - Most Pythonic way
 
-for k, v in userdata.items():
-    print(f"Key: {k} | Value: {v}") 
+# for k, v in userdata.items():
+#     print(f"Key: {k} | Value: {v}") 
 
 
 

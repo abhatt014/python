@@ -11,3 +11,14 @@
 #   If user enters 4: 
 #   Enter an integer: 4
 #   4 is even.
+
+
+# input the number
+num = int(input("Enter an integer: "))
+
+#check num is even or odd
+if num % 2 == 0:
+    print(f"{num} is even.")
+else:
+    print(f"{num} is odd.")
+    

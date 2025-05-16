@@ -7,3 +7,13 @@
 #   Enter your first name: John
 #   Enter your last name: Doe
 #   Hello, John Doe! Welcome to the Python program.
+
+
+#input fname and lname
+fname = input("Enter your first name: ")
+lname = input("Enter your last name: ")
+
+#fullname = fname + " " + lname
+fullname = f"{fname} {lname}"
+
+print(f"Hello, {fullname}! Welcome to the Python program.")

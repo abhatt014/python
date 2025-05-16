@@ -11,3 +11,18 @@
 # Square root: 5.0
 # Logarithm: 3.2188758248682006
 # Sine: -0.13235175009777303
+
+#import math module
+import math as m
+# input number
+num = int(input("Enter a number: "))
+
+#calculate
+sqrt = m.sqrt(num)
+log = m.log(num)
+sin = m.sin(num)
+
+#display    
+print(f"Square root: {sqrt}")
+print(f"Logarithm: {log}")
+print(f"Sine: {sin}")

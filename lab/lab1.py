@@ -14,3 +14,20 @@
 #   Subtraction: -5
 #   Multiplication: 50
 #   Division: 0.5
+
+# input 2 numbers
+num1 = int(input("Enter 1st number"))
+num2 = int(input("Enter 2nd number"))
+
+#perform operations
+add = num1 + num2
+sub = num1 - num2
+mul = num1 * num2
+div = num1 / num2
+
+#display results
+print(f"Addition: {add}")
+print(f"Subtraction: {sub}")
+print(f"Multiplication: {mul}")
+print(f"Division: {div}")
+
