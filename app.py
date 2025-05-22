@@ -1,26 +1,52 @@
-from flask import Flask
-import math
-# app initialization
+from flask import Flask , request , jsonify , render_template
+from datetime import datetime
+
 app = Flask(__name__)
+@app.route("/login")
+def login():
+    return render_template("login.html")
+@app.route("/submit", methods=['POST'])
+def submit():
+        return request.form.get("username")
 
-@app.route('/')
+  
+
+
+@app.route("/")
 def home():
-	
-	return 	index_html
+    current_day = datetime.now().strftime("%A")
+    topic = 'devops'
+    #Wednesday
+    return render_template("index.html", current_day=current_day, topic=topic)
+
+@app.route("/contact")
+def contact():
+    return render_template("contact.html")
+
+@app.route("/portfolio")
+def portfolio():
+    return render_template("portfolio.html")
 
 
-@app.route('/welcome')
-def welcome():
-	return "<h1>HELLO WORLD</h1>"
-# route is /api/23
-@app.route('/api/<number>')
-def show_num(number):
-	number = int(number)
-	res = math.factorial(number)
-	msg = f" the Factorial = {res}"
-	return msg
+
+# ROUTE FOR /api/data
+@app.route("/api/data")
+def api_data():
+    user = {
+        'id': 1,
+        'name': 'John Doe',
+        'email': 'john@example.com',
+        'phone': '123-456-7890'
+    }
+    return user
+   
+    # name = request.args.get("name")
+    # age = request.args.get("age")
+    # response_data = {}
+    # response_data["name"] = name
+    # response_data["age"] = age
+    # return response_data
 
 
-if __name__ == '__main__':
-# launch app		
-	app.run()
+if __name__ == "__main__":
+    app.run(debug=True)
