@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+
+    <nav class="bg-indigo-600 text-white shadow-lg">
+        <div class="container mx-auto px-6 py-3 md:flex md:justify-between md:items-center">
+            <div class="flex items-center justify-between">
+                <div>
+                    <a class="text-xl font-bold hover:text-indigo-200" href="#">MyDashboard</a>
+                </div>
+                <div class="flex md:hidden">
+                    <button type="button" class="text-gray-200 hover:text-gray-400 focus:outline-none focus:text-gray-400" aria-label="toggle menu" id="mobileMenuButton">
+                        <svg viewBox="0 0 24 24" class="h-6 w-6 fill-current">
+                            <path fill-rule="evenodd" d="M4 5h16a1 1 0 0 1 0 2H4a1 1 0 1 1 0-2zm0 6h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2zm0 6h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2z"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <div class="md:flex items-center hidden" id="mobileMenu">
+                <div class="flex flex-col md:flex-row md:mx-6">
+                    <a class="my-1 text-sm hover:text-indigo-200 md:mx-4 md:my-0" href="#">Profile</a>
+                    <a class="my-1 text-sm hover:text-indigo-200 md:mx-4 md:my-0" href="#">Settings</a>
+                </div>
+
+                <div class="flex justify-center md:block">
+                     <button id="logoutButton" class="relative py-2 px-4 bg-red-500 hover:bg-red-600 rounded-lg text-sm font-medium transition duration-150">
+                        Logout
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mx-auto px-6 py-8">
+        <h1 class="text-3xl font-bold text-gray-700 mb-6" id="welcomeMessage">Welcome, {{ email }}!</h1>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div class="bg-white p-6 rounded-lg shadow-md">
+                <h2 class="text-xl font-semibold text-gray-700 mb-3">Profile Overview</h2>
+                <p class="text-gray-600">View and update your personal information.</p>
+                <button class="mt-4 px-4 py-2 bg-indigo-500 text-white rounded-lg hover:bg-indigo-600 text-sm">View Profile</button>
+            </div>
+
+            <div class="bg-white p-6 rounded-lg shadow-md">
+                <h2 class="text-xl font-semibold text-gray-700 mb-3">Recent Activity</h2>
+                <ul class="list-disc list-inside text-gray-600 space-y-1">
+                    <li>Logged in successfully.</li>
+                    <li>Viewed dashboard.</li>
+                    <li>(No other activities yet)</li>
+                </ul>
+            </div>
+
+            <div class="bg-white p-6 rounded-lg shadow-md">
+                <h2 class="text-xl font-semibold text-gray-700 mb-3">Quick Links</h2>
+                <div class="flex flex-col space-y-2">
+                    <a href="#" class="text-indigo-600 hover:underline">Account Settings</a>
+                    <a href="#" class="text-indigo-600 hover:underline">Support Center</a>
+                    <a href="#" class="text-indigo-600 hover:underline">FAQs</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-8 bg-white p-6 rounded-lg shadow-md">
+            <h2 class="text-xl font-semibold text-gray-700 mb-3">More Content</h2>
+            <p class="text-gray-600">This is a placeholder for additional dashboard sections, charts, or data tables.</p>
+        </div>
+    </div>
+
+    <div id="messageModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full flex items-center justify-center hidden">
+        <div class="bg-white p-5 rounded-lg shadow-xl w-full max-w-sm mx-auto">
+            <div class="text-center">
+                <p id="modalMessageText" class="text-lg font-medium text-gray-700 mb-4"></p>
+                <button id="closeModalButton" class="px-4 py-2 bg-indigo-500 text-white rounded-lg hover:bg-indigo-600">Close</button>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        const mobileMenuButton = document.getElementById('mobileMenuButton');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const logoutButton = document.getElementById('logoutButton');
+        const welcomeMessage = document.getElementById('welcomeMessage');
+        const messageModal = document.getElementById('messageModal');
+        const modalMessageText = document.getElementById('modalMessageText');
+        const closeModalButton = document.getElementById('closeModalButton');
+
+        // Toggle mobile menu
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Function to show modal message
+        function showModalMessage(message) {
+            modalMessageText.textContent = message;
+            messageModal.classList.remove('hidden');
+        }
+
+        // Close modal
+        closeModalButton.addEventListener('click', () => {
+            messageModal.classList.add('hidden');
+        });
+
+        // Handle logout
+        logoutButton.addEventListener('click', () => {
+            // In a real application, you would clear session/token and redirect
+            console.log('User logged out.');
+            showModalMessage('You have been logged out. Redirecting to login page...');
+            // Simulate redirection
+            setTimeout(() => {
+                // window.location.href = 'login.html'; // Uncomment to redirect
+                messageModal.classList.add('hidden'); // Hide modal before "redirecting"
+                showModalMessage('Normally, you would be redirected to login.html'); // Show another message for demo
+            }, 2500);
+        });
+
+        // Personalize welcome message (example - in a real app, get from session/API)
+        // For demonstration, we'll try to get it from a URL parameter if login page passed it
+        // Or use a generic name
+        function getQueryParam(param) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(param);
+        }
+
+        const userEmail = getQueryParam('email'); // Assuming login page might pass email
+        if (userEmail) {
+            // Basic sanitization for display
+            const safeEmail = userEmail.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+            welcomeMessage.textContent = `Welcome, ${safeEmail}!`;
+        } else {
+            // Fallback if no user info is available
+            // In a real app, you'd likely redirect to login if no user session exists
+            welcomeMessage.textContent = 'Welcome, User!';
+        }
+
+        // Check if user should be here (very basic check)
+        // In a real app, this would be a robust check of authentication status
+        // For this demo, if there's no simulated user info, we could "redirect"
+        if (!userEmail && !sessionStorage.getItem('loggedInUser')) { // sessionStorage is just an example
+             // console.warn('No user session found, redirecting to login (simulated).');
+             // showModalMessage('Access denied. Please log in.');
+             // setTimeout(() => {
+             //    window.location.href = 'login.html'; // Uncomment to redirect
+             // }, 3000);
+        }
+
+    </script>
+</body>
+</html>

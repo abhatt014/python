@@ -8,10 +8,6 @@ def login():
 @app.route("/submit", methods=['POST'])
 def submit():
         return request.form.get("username")
-
-  
-
-
 @app.route("/")
 def home():
     current_day = datetime.now().strftime("%A")
@@ -26,8 +22,6 @@ def contact():
 @app.route("/portfolio")
 def portfolio():
     return render_template("portfolio.html")
-
-
 
 # ROUTE FOR /api/data
 @app.route("/api/data")
