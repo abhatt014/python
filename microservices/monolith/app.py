@@ -49,6 +49,9 @@ def submit():
         conn.commit()
         cursor.close()
         conn.close()
+        return "data submited successfully"
+@app.route('/view')
+def view():        
         #select * from users and return data
         conn = get_db_connection()
         cursor = conn.cursor(dictionary=True)

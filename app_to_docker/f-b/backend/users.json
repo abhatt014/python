@@ -1,0 +1,20 @@
+[
+    {
+        "id": 1,
+        "username": "amit",
+        "password_hash": "pbkdf2:sha256:1000000$l6dcbwzWWxaNtLZh$3e6300dc29fe90ee1b353224ba12bf17e5bfc61126da3941569ede1bf541939e",
+        "email": "amit@test.com",
+        "full_name": "amit",
+        "created_at": "2025-05-29T14:44:10.061149Z",
+        "created_at_formatted": "2025-05-29 14:44"
+    },
+    {
+        "id": 2,
+        "username": "testuser1",
+        "password_hash": "pbkdf2:sha256:1000000$8IAGbdUoaIX3ZAFa$f774d5dc806b00ada7469535bfea0bac2dc657a9cc8cba4d468a1ab04c120644",
+        "email": "testuser1@test.com",
+        "full_name": "testuser1",
+        "created_at": "2025-05-29T15:35:40.084729Z",
+        "created_at_formatted": "2025-05-29 15:35"
+    }
+]

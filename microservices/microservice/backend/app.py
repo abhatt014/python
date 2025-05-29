@@ -1,5 +1,4 @@
-from flask import Flask,request,render_template 
-from datetime import datetime 
+from flask import Flask,request
 import mysql.connector
 from mysql.connector import Error
 
@@ -29,17 +28,13 @@ def get_db_connection():
 app = Flask(__name__)
 ##app.secret_key = 'your_very_secret_key' # Needed for flash messages, if you add them
 
-# --- Routes ---
-@app.route('/')
-def index():
-    current_date = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    return render_template('index.html',current_date=current_date)
+
 
 @app.route('/submit',methods=['POST'])
 def submit():
     if request.method == 'POST':
-        username  = request.form['username']
-        password = request.form['password']
+        username  = request.json['username']
+        password = request.json['password']
         #insert username and password in user table
         conn = get_db_connection()
         cursor = conn.cursor(dictionary=True)
@@ -49,6 +44,9 @@ def submit():
         conn.commit()
         cursor.close()
         conn.close()
+        return "data submited successfully"
+@app.route('/view')
+def view():        
         #select * from users and return data
         conn = get_db_connection()
         cursor = conn.cursor(dictionary=True)
@@ -62,7 +60,7 @@ def submit():
         return form_data
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port=9000, debug=True)
 
 
 
