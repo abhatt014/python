@@ -1,42 +1,38 @@
 #version: '3.8'
 
 services:
-  backend_app: # This is the service name, used for inter-service communication
+  backend-app: # This is the service name, used for inter-service communication
     build:
-      context: ./backend 
+      context: ./backend
       dockerfile: Dockerfile
-    image: backend:v1 # This is the image name and tag
-    container_name: backend_app_container # Explicit container name
+    image: backend:v1.1 # This is the image name and tag
+    container_name: backend-app # Explicit container name
     ports:
-      - "5001:5001" 
+      - "5001:5001"
     volumes:
-      - ./backend/users.json:/app/users.json 
+      - ./backend/users.json:/app/users.json
       # - ./backend:/app # For development live reload
     networks:
-      - login_app_network 
+      - login-app-network
     restart: unless-stopped
 
-  frontend_app: # This is the service name
+  frontend-app: # This is the service name
     build:
-      context: ./frontend 
+      context: ./frontend
       dockerfile: Dockerfile
-    image: frontend:v1 # This is the image name and tag
-    container_name: frontend_app_container # Explicit container name
+    image: frontend:v1.1 # This is the image name and tag
+    container_name: frontend-app # Explicit container name
     ports:
-      - "5000:5000" 
-    volumes:
-      - ./frontend/templates:/app/templates 
-      # - ./frontend:/app # For development live reload
+      - "5000:5000"
     depends_on:
-      - backend_app # Depends on the service name
+      - backend-app # Depends on the service name
     environment:
       # This URL uses the backend service name (backend_app), which Docker Compose resolves
-      - BACKEND_API_URL=http://backend_app:5001/api 
-      - FLASK_DEBUG=1 
+      - BACKEND_API_URL=http://backend-app:5001/api
     networks:
-      - login_app_network 
+      - login-app-network
     restart: unless-stopped
 
 networks:
-  login_app_network: 
+  login-app-network:
     driver: bridge
