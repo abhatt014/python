@@ -1,11 +1,12 @@
-version: '3.8'
+#version: '3.8'
 
 services:
-  backend_app: # Updated service name
+  backend_app: # This is the service name, used for inter-service communication
     build:
       context: ./backend 
       dockerfile: Dockerfile
-    image: backend:v1 # Added image name and tag
+    image: backend:v1 # This is the image name and tag
+    container_name: backend_app_container # Explicit container name
     ports:
       - "5001:5001" 
     volumes:
@@ -15,20 +16,22 @@ services:
       - login_app_network 
     restart: unless-stopped
 
-  frontend_app: # Updated service name
+  frontend_app: # This is the service name
     build:
       context: ./frontend 
       dockerfile: Dockerfile
-    image: frontend:v1 # Added image name and tag
+    image: frontend:v1 # This is the image name and tag
+    container_name: frontend_app_container # Explicit container name
     ports:
       - "5000:5000" 
     volumes:
       - ./frontend/templates:/app/templates 
       # - ./frontend:/app # For development live reload
     depends_on:
-      - backend_app # Updated dependency
+      - backend_app # Depends on the service name
     environment:
-      - BACKEND_API_URL=http://backend_app:5001/api # Updated backend service name in URL
+      # This URL uses the backend service name (backend_app), which Docker Compose resolves
+      - BACKEND_API_URL=http://backend_app:5001/api 
       - FLASK_DEBUG=1 
     networks:
       - login_app_network 
