@@ -7,7 +7,7 @@ import datetime
 
 # --- App Initialization and Configuration ---
 app = Flask(__name__)
-app.secret_key = os.environ.get('BACKEND_SECRET_KEY', 'your_backend_secret_key_for_dev_sessions_file_nojs')
+app.secret_key = 'your_backend_secret_key'
 # Allow all origins for simplicity in this non-JS server-to-server context for /api/users
 # Login still benefits from stricter CORS if called by JS hypothetically.
 CORS(app, resources={r"/api/*": {"origins": "*"}}, supports_credentials=True)

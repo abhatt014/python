@@ -1,0 +1,44 @@
+version: '3.8'
+
+services:
+  backend: # Updated service name to match directory
+    build:
+      context: ./backend # Updated path to the Dockerfile for backend
+      dockerfile: Dockerfile
+    ports:
+      - "5001:5001" # Map host port 5001 to container port 5001
+    volumes:
+      - ./backend/users.json:/app/users.json # Persist users.json outside the container
+      # For development, you might also mount the code for live reload if your Flask app supports it:
+      # - ./backend:/app 
+    networks:
+      - login_app_network # Updated network name
+    restart: unless-stopped
+
+  frontend: # Updated service name to match directory
+    build:
+      context: ./frontend # Updated path to the Dockerfile for frontend
+      dockerfile: Dockerfile
+    ports:
+      - "5000:5000" # Map host port 5000 to container port 5000
+    volumes:
+      # For development, mount the code for live reload (Flask debug mode must be on)
+      # - ./frontend:/app
+      # If you mount the whole /app, ensure templates are still accessible.
+      # A more specific mount for templates might be needed if /app is fully mounted.
+      - ./frontend/templates:/app/templates # Example of mounting just templates if app.py is part of the image
+    depends_on:
+      - backend # Ensures backend starts before frontend attempts to connect
+    environment:
+      # This URL uses the backend service name, which Docker Compose resolves
+      - BACKEND_API_URL=http://backend:5001/api # Updated backend service name
+      - FLASK_DEBUG=1 # Optional: enable debug mode for frontend Flask app
+    networks:
+      - login_app_network # Updated network name
+    restart: unless-stopped
+
+networks:
+  login_app_network: # Updated network name
+    driver: bridge
+
+# Removed the unused 'volumes: backend_data:' as users.json is bind-mounted
